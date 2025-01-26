@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace API.Data.Migrations
+namespace API.Migrations
 {
     /// <inheritdoc />
     public partial class InitialCreate : Migration
@@ -16,11 +16,26 @@ namespace API.Data.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", nullable: false)
+                    Username = table.Column<string>(type: "TEXT", nullable: false),
+                    PasswordHash = table.Column<byte[]>(type: "BLOB", nullable: false),
+                    PasswordSalt = table.Column<byte[]>(type: "BLOB", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users2",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Username = table.Column<string>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users2", x => x.Id);
                 });
         }
 
@@ -29,6 +44,9 @@ namespace API.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Users2");
         }
     }
 }

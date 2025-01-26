@@ -2,28 +2,33 @@
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace API.Data.Migrations
+namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241111130808_addusers2")]
-    partial class addusers2
+    partial class DataContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
+            modelBuilder.HasAnnotation("ProductVersion", "8.0.11");
 
             modelBuilder.Entity("API.Entities.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired()
+                        .HasColumnType("BLOB");
 
                     b.Property<string>("Username")
                         .IsRequired()
