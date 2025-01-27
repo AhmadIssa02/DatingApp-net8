@@ -7,7 +7,6 @@ namespace API.Data
     {
 
         public DbSet<AppUser> Users { get; set; }
-        public DbSet<AppUser2> Users2 { get; set; }
 
 
     }
